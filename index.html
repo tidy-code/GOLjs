@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game of life</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Game Of Life</h1>
+            <canvas id="monitor" width="700" height="700"></canvas>
+            <br />
+            <button id="runStep">run step!</button>
+            <button id="stop">Stop!</button>
+            <button id="setDish">Enable Edit...</button>
+            <button id="reset">reset</button>
+            <button id="save">save</button>
+            <label class="speed-gauge-label">
+                <i class="icon-clock"></i>
+                <span id="speed-gauge">0/s</span>
+                <br />
+                <input type="range" value="0" min="0" max="50" id="speed" />
+            </label>
+            <label title="go high as long as fps doesn't drop">
+                <input type="checkbox" id="autospeed" />
+                AutoSpeed (<span id="fps-gauge"></span>)
+            </label>
+            <br />
+            <label><input type="checkbox" id="sticky-cells" />sticky</label>
+            <br />
+            <br />
+            <h3>Load from list:</h3>
+            <div id="saved-items"></div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="sticky">
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        result="blur"
+                        stdDeviation="3"
+                    ></feGaussianBlur>
+                    <feColorMatrix
+                        in="blur"
+                        mode="matrix"
+                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 7 -1"
+                        result="goo"
+                    ></feColorMatrix>
+                    <feGaussianBlur
+                        in="goo"
+                        stdDeviation="3"
+                        result="shadow"
+                    ></feGaussianBlur>
+
+                    <feBlend
+                        in2="goo"
+                        in="SourceGraphic"
+                        result="mix"
+                    ></feBlend>
+                </filter>
+            </defs>
+        </svg>
+
+        <script src="lib/fps.js"></script>
+        <script src="lib/engine.js"></script>
+        <script src="lib/microscope.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
