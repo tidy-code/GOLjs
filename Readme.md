@@ -4,6 +4,10 @@ A simple demonstration of [gameOfLife](https://en.wikipedia.org/wiki/Conway%27s_
 
 _first draft_
 
-## setup
+## Setup
 
 Just clone the repo and open `index.html` in browser.
+
+## Demo
+
+If you just want to see what it is and how it's working checkout [this online demo](https://tidy-code.github.io/GOLjs.html)
