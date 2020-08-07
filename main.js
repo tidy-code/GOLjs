@@ -9,6 +9,7 @@ const DISH_ROWS = 100;
 const DISH_COLS = 100;
 let autoSpeedIntervalId = 0;
 let stepIntervalID = 0;
+let fpsIntervalID = 0;
 
 const PD = createPetriDish(DISH_COLS, DISH_ROWS, canvas);
 
@@ -19,6 +20,20 @@ PD.setCells([
     [4, 15],
     [3, 4],
 ]);
+
+// load samples to localStorage
+if (!~Object.keys(localStorage).indexOf("saved_Spaceship")) {
+    localStorage.setItem(
+        "saved_Spaceship",
+        "[[8,4],[8,5],[8,6],[9,3],[9,4],[9,5],[9,6],[9,7],[10,3],[10,4],[10,5],[10,7],[10,8],[11,6],[11,7]]"
+    );
+}
+if (!~Object.keys(localStorage).indexOf("saved_Simple Gun")) {
+    localStorage.setItem(
+        "saved_Simple Gun",
+        "[[3,28],[4,26],[4,28],[5,16],[5,17],[5,24],[5,25],[5,38],[5,39],[6,15],[6,19],[6,24],[6,25],[6,38],[6,39],[7,4],[7,5],[7,14],[7,20],[7,24],[7,25],[8,4],[8,5],[8,14],[8,18],[8,20],[8,21],[8,26],[8,28],[9,14],[9,20],[9,28],[10,15],[10,19],[11,16],[11,17]]"
+    );
+}
 
 function bind({ element, event, callback }) {
     if (typeof element === "string") {
@@ -125,6 +140,9 @@ function enableAutoSpeed() {
         setSpeed();
     }
     autoSpeedIntervalId = setInterval(setSpeed, 5000);
+    fpsIntervalID = setInterval(function () {
+        document.getElementById("fps-gauge").innerHTML = `(${fps.getFPS()}fps)`;
+    }, 1000);
     fps.init();
 }
 
@@ -135,6 +153,7 @@ function setSpeed() {
 
 function disableAutoSpeed() {
     clearInterval(autoSpeedIntervalId);
+    clearInterval(fpsIntervalID);
     fps.kill();
 }
 bind({
